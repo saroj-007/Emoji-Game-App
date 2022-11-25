@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "150892724490",
+    "project_id": "realemojiapps-cbdd2",
+    "storage_bucket": "realemojiapps-cbdd2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150892724490:android:0cc174db292d2c82a7baf3",
+        "android_client_info": {
+          "package_name": "com.example.providerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150892724490-ts97uo9jjutkqq6lpt24727gmrulnnf1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.providerapp",
+            "certificate_hash": "5effba753c85d277d4d16510d94c12dddbfd9d1d"
+          }
+        },
+        {
+          "client_id": "150892724490-siajpg6thhejcer2992kc0bqabcsthck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1HjSIITW48XswmIGk0x7z-Rs_LVk_moM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150892724490-siajpg6thhejcer2992kc0bqabcsthck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
