@@ -1,5 +1,7 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -14,6 +16,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   TextEditingController emails = TextEditingController();
 
+  forgotPassword() async {
+    try {
+      await FirebaseAuth.instance
+      .sendPasswordResetEmail(email: emails.text);
+      Fluttertoast.showToast(msg: "Reset password link successfully sent to this email");
+
+    }
+    on FirebaseAuthException catch (e) {
+      Fluttertoast.showToast(
+        msg: e.message.toString(),
+        gravity: ToastGravity.CENTER
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +43,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         child: Padding(
           padding: const EdgeInsets.only(right: 8.0, left: 8.0, top: 40),
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 TextFormField(
                   controller: emails,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
                             decoration: InputDecoration(
                               hintText: "Enter Email Address",
                               border: OutlineInputBorder(
@@ -62,11 +81,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
              
             ),
                     onPressed: () {
-                      if (_formKey.currentState!.validate()){
-                        bool isValid = EmailValidator.validate(emails.text);
+                      print("Hello 1");
 
+                      if (_formKey.currentState!.validate()){
+                        print("Hello 2");
+                        bool isValid = EmailValidator.validate(emails.text);
                         if (isValid) {
-                          
+                          forgotPassword();
+                        }
+                        else {
+                          Fluttertoast.showToast(msg: "Invalid email address entered");
                         }
                       }
                     }, 

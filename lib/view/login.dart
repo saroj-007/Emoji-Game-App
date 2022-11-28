@@ -53,6 +53,7 @@ class _loginState extends State<login> {
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       controller: au.logEmails,
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.email_outlined),
                       hintText: "Enter Your Email",
@@ -76,6 +77,7 @@ class _loginState extends State<login> {
                   TextFormField(
                     obscureText: true,
                     controller: au.logPass,
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.lock),
                       hintText: "Enter Your Password",

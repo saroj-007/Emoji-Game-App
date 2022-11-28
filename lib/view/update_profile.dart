@@ -20,11 +20,11 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final userNameController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController mobileController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
+  // final userNameController = TextEditingController();
+  // final TextEditingController addressController = TextEditingController();
+  // final TextEditingController mobileController = TextEditingController();
+  // final TextEditingController emailController = TextEditingController();
+  // final TextEditingController passController = TextEditingController();
 
   UserDetail ud = UserDetail();
 
@@ -68,6 +68,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                 child: Container(
                   child: TextFormField(
                     controller: ud.userNameController,
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                     decoration: InputDecoration(
                       hintText: "Enter User name",
                       border: OutlineInputBorder(
@@ -89,7 +90,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                   alignment: Alignment.centerLeft,
                   child: TextFormField(
                     controller: ud.addressController,
-                    
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                     decoration: InputDecoration(
                       hintText: "Enter Your Address",
                       border: OutlineInputBorder(
@@ -109,7 +110,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                 child: Container(
                   child: TextFormField(
                     controller: ud.mobileController,
-                    
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                     decoration: InputDecoration(
                       hintText: "Enter Mobile Number",
                       border: OutlineInputBorder(
@@ -128,6 +129,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                 child: Container(
                   child: TextFormField(
                     controller: ud.emailController,
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                     readOnly: true,
                     decoration: InputDecoration(
                       hintText: "Enter Your Email Address",
@@ -147,7 +149,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                 child: Container(
                   child: TextFormField(
                     controller: ud.passController,
-                    
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                     decoration: InputDecoration(
                       hintText: "Enter Password",
                       border: OutlineInputBorder(
@@ -177,6 +179,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
           ),
                     onPressed: () {
                       ud.updateUser();
+                      dispose();
                       Navigator.push(context, MaterialPageRoute(builder: (context) => MyProfile()));
                     }, 
                     child: const Text('Update', 

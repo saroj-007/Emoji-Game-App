@@ -76,6 +76,7 @@ class UserDetail extends ChangeNotifier{
     "Password" : passController.text
   }
   );
+  await user!.updatePassword(passController.text);
   Fluttertoast.showToast(msg: "Updated Successfully");
  }
  else {
