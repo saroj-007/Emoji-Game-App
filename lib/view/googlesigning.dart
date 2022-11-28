@@ -6,10 +6,15 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class MyGoogleSignIn extends StatelessWidget {
+class MyGoogleSignIn extends StatefulWidget {
   const MyGoogleSignIn({super.key});
 
-  googleLogin() async {
+  @override
+  State<MyGoogleSignIn> createState() => _MyGoogleSignInState();
+}
+
+class _MyGoogleSignInState extends State<MyGoogleSignIn> {
+  Future<void> googleLogin() async {
     print("Google Login Method Called");
     GoogleSignIn _googleSignIn = GoogleSignIn();
     try{
@@ -40,7 +45,10 @@ class MyGoogleSignIn extends StatelessWidget {
     child: Container(
       child: Center(
         child: ElevatedButton(
-          onPressed: googleLogin(), 
+          onPressed: () {
+             googleLogin();
+          },
+           
           child: Text("Google Sign In")
           ),
       ),

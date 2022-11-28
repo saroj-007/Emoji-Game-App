@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:providerapp/provider/dataprovider.dart';
 
 class UserDetail extends ChangeNotifier{
@@ -10,6 +11,13 @@ class UserDetail extends ChangeNotifier{
 
   final getUser = FirebaseFirestore.instance;
   
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController confirmPassController = TextEditingController();
+
 
   String Name = "";
   String Address = "";
@@ -29,9 +37,7 @@ class UserDetail extends ChangeNotifier{
 
   // Get User detail
  Future<void>  getUserDetail() async {
-
   final uid1 = user!.uid;
-
   DocumentSnapshot snapshot = await getUser.collection('users').doc(uid1).get();
   var data1 = snapshot.data() as Map;
 
@@ -55,5 +61,29 @@ class UserDetail extends ChangeNotifier{
   notifyListeners();
  }
 
+ // Update user profile 
+ Future<void> updateUser() async {
+  // Firestore instance
+ final firestore = FirebaseFirestore.instance;
+  final uid1 = user!.uid;
+ 
+ if (uid1 != null) {
+  firestore.collection('users').doc(uid1).set({
+    "Name" : userNameController.text,
+    "Address" : addressController.text,
+    "Mobile" : mobileController.text,
+    "Email" : emailController.text,
+    "Password" : passController.text
+  }
+  );
+  Fluttertoast.showToast(msg: "Updated Successfully");
+ }
+ else {
+  Fluttertoast.showToast(msg: "User Not Found");
+ }
+
+  notifyListeners();
+
+ }
  
 }

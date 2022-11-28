@@ -56,6 +56,8 @@ class AuthServices {
   }
  }
 
+ 
+
  // For login method
  Future<void> loginUser(context) async {
   try {

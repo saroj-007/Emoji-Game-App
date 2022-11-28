@@ -140,7 +140,11 @@ UserDetail ud = UserDetail();
                                  if ( res1 == _selectedNums){
                                providerValue.increment();
                                providerValue.getData();
-                              providerValue.resCorrect();
+                               providerValue.resCorrect();
+                               providerValue.getPostData();
+                               providerValue.resetRes();
+                               // providerValue.resetScore();
+                               providerValue.resetButton();
                              }
                              else{
                                providerValue.resIncorrect();
@@ -151,7 +155,7 @@ UserDetail ud = UserDetail();
                                   
                          }, 
                          
-                       child: const Text("Check")),
+                       child: const Text("Submit")),
                           ),
            
                      //  const SizedBox(height: 15,),

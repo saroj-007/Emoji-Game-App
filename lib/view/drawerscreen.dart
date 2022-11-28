@@ -85,7 +85,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             Icons.score,
           ),
           title: const Text('Change Password', style: TextStyle(fontSize: 20, color: Colors.blueAccent),),
-          onTap: () {
+          onTap: () async {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyGoogleSignIn()));
           },
         ),
