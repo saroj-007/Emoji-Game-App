@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:providerapp/controller/auths.dart';
 import 'package:providerapp/view/forgotpassword.dart';
 import 'package:providerapp/view/homescreen.dart';
+import 'package:providerapp/view/real_login_screen.dart';
 import 'package:providerapp/view/registrationform.dart';
 
 class login extends StatefulWidget {
@@ -99,7 +100,7 @@ class _loginState extends State<login> {
                   // Forget Password text
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ForgotPassword()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyLoginPage()));
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(top: 12.0, left: 190),
@@ -150,7 +151,16 @@ class _loginState extends State<login> {
                       ),
                       ), 
                     ),
+                    
                 ),
+
+                // Text -OR- keyword
+
+                const Text("--- OR ---",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
+                ),
+
+                SizedBox(height: 20,),
 
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, left: 75.0),
