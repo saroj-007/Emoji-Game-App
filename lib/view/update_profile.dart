@@ -20,6 +20,9 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
 
   final _formKey = GlobalKey<FormState>();
 
+  // Variable declaration for password visible or invisible
+  late bool _passwordVisible;
+
   // final userNameController = TextEditingController();
   // final TextEditingController addressController = TextEditingController();
   // final TextEditingController mobileController = TextEditingController();
@@ -27,6 +30,8 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
   // final TextEditingController passController = TextEditingController();
 
   UserDetail ud = UserDetail();
+
+
 
   @override
   void initState() {
@@ -39,6 +44,8 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
     ud.mobileController.text = postModel.getPhone;
     ud.emailController.text = postModel.getEmail;
     ud.passController.text = postModel.getPassword;
+
+     _passwordVisible = false;
   }
 
   @override
@@ -168,10 +175,22 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Container(
                     child: TextFormField(
-                      obscureText: true,
+                       obscureText: !_passwordVisible,
                       controller: ud.passController,
                       style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                       decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            // Update the state
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                        ),
                         label: Text("Password"),
                         hintText: "Enter Password",
                         border: OutlineInputBorder(

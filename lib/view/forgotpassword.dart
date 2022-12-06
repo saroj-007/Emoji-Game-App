@@ -40,71 +40,90 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         title: const Text("Verify Email"),
       ),
 
-      body:  SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(right: 8.0, left: 8.0, top: 40),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: emails,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
-                            decoration: InputDecoration(
-                              hintText: "Enter Email Address",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: const BorderSide()
-                              )
-                            ),
-                            validator: (value) {
-                              if(value == null || value.isEmpty){
-                                return "Required this field";
-                              }
-                              return null;
-                            },
-                            
-                          ),
-
-                          const SizedBox(height: 35.0,),
-                
-
-                // Elevated Button
-                SizedBox(
-                height: 60,
-                  width: 400,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent,
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-             
+      body:  Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0x66fa8dc),
+                  Color(0x996fa8dc),
+                  Color(0xcc6fa8dc),
+                  Color(0xff6fa8dc),
+                ])
             ),
-                    onPressed: () {
-                      print("Hello 1");
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8.0, left: 8.0, top: 40),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: TextFormField(
+                      controller: emails,
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
+                                decoration: InputDecoration(
+                                  hintText: "Enter Email Address",
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide()
+                                  )
+                                ),
+                                validator: (value) {
+                                  if(value == null || value.isEmpty){
+                                    return "Required this field";
+                                  }
+                                  return null;
+                                },
+                                
+                              ),
+                  ),
 
-                      if (_formKey.currentState!.validate()){
-                        print("Hello 2");
-                        bool isValid = EmailValidator.validate(emails.text);
-                        if (isValid) {
-                          forgotPassword();
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const login()));
+                            const SizedBox(height: 35.0,),
+                  
+
+                  // Elevated Button
+                  SizedBox(
+                  height: 60,
+                    width: 400,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueAccent,
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+               
+              ),
+                      onPressed: () {
+                        print("Hello 1");
+
+                        if (_formKey.currentState!.validate()){
+                          print("Hello 2");
+                          bool isValid = EmailValidator.validate(emails.text);
+                          if (isValid) {
+                            forgotPassword();
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const login()));
+                          }
+                          else {
+                            Fluttertoast.showToast(msg: "Invalid email address entered");
+                          }
                         }
-                        else {
-                          Fluttertoast.showToast(msg: "Invalid email address entered");
-                        }
-                      }
-                    }, 
-                    child: const Text('Verify', 
-                    style: TextStyle(
-                      fontSize: 23, 
-                      fontWeight: FontWeight.bold
+                      }, 
+                      child: const Text('Verify', 
+                      style: TextStyle(
+                        fontSize: 23, 
+                        fontWeight: FontWeight.bold
+                        ),
+                        ), 
                       ),
-                      ), 
-                    ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
