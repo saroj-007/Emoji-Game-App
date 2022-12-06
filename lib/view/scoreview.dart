@@ -33,27 +33,42 @@ class _MyScoreState extends State<MyScore> {
 
       body: Consumer<UserDetail>(
         builder: (context, value, child) {
-          return Center(
-            child: Container(
-              child: CircleAvatar(
-                radius: 100,
-                child:  Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 68.0),
-                    child: Column(
-                      children: [
-                        Text("Total Score", style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
-                        Text("${value.getScore}",
-                        style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+          return Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0x66fa8dc),
+                  Color(0x996fa8dc),
+                  Color(0xcc6fa8dc),
+                  Color(0xff6fa8dc),
+                ])
+            ),
+            child: Center(
+              child: Container(
+                child: CircleAvatar(
+                  radius: 100,
+                  child:  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 68.0),
+                      child: Column(
+                        children: [
+                          Text("Total Score", style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
+                          Text("${value.getScore}",
+                          style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                      ),
+                        ],
+                      ),
                     ),
-                      ],
-                    ),
-                  ),
+                  )
+                  
                 )
                 
-              )
-              
-             
+               
+              ),
             ),
           );
         }

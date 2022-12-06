@@ -150,6 +150,14 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
   }
 
+  Widget buildLoginBtn() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 25),
+      width: double.infinity,
+      
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

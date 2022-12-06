@@ -141,10 +141,10 @@ UserDetail ud = UserDetail();
                                providerValue.increment();
                                providerValue.getData();
                                providerValue.resCorrect();
-                               providerValue.getPostData();
-                               providerValue.resetRes();
+                              // providerValue.getPostData();
+                              // providerValue.resetRes();
                                // providerValue.resetScore();
-                               providerValue.resetButton();
+                              // providerValue.resetButton();
                              }
                              else{
                                providerValue.resIncorrect();
@@ -155,7 +155,11 @@ UserDetail ud = UserDetail();
                                   
                          }, 
                          
-                       child: const Text("Submit")),
+                       child:  const Text("Submit",
+                       ),
+                       style: ElevatedButton.styleFrom(
+                        backgroundColor: providerValue.btnResult ? Colors.blue : Colors.red
+                       ),),
                           ),
            
                      //  const SizedBox(height: 15,),

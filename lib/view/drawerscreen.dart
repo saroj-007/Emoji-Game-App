@@ -31,24 +31,29 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   @override
   Widget build(BuildContext context) {
+
    final scoreModel = Provider.of<DataProvider>(context, listen: false);
+
+   final postModel = Provider.of<UserDetail>(context, listen: false);
    
-    return Drawer(
+    return Scaffold(
+      body: Consumer<UserDetail>(builder: (context, value, child) {
+        return Drawer(
     child: ListView(
       // Important: Remove any padding from the ListView.
       padding: EdgeInsets.zero,
       children: [
-        const UserAccountsDrawerHeader( // <-- SEE HERE
+        UserAccountsDrawerHeader( // <-- SEE HERE
           decoration: BoxDecoration(color: Colors.blueAccent),
 
           accountName: Text(
-            "Pinkesh Darji",
+            value.getName,
             style: TextStyle(
               fontWeight: FontWeight.bold, 
             ),
           ),
           accountEmail: Text(
-            "pinkesh.earth@gmail.com",
+            value.getEmail,
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -58,7 +63,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
             child: CircleAvatar(
               radius: 52,
              // backgroundImage: ,
-             child: Text("S"),
+             child: Text((value.getName.isNotEmpty) ? value.getName[0].toUpperCase() : "",
+             style: TextStyle(
+              fontSize: 18
+             ),),
             ),
           ),
         ),
@@ -80,15 +88,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyScore()));
           },
         ),
-        ListTile(
-          leading: const Icon(
-            Icons.score,
-          ),
-          title: const Text('Change Password', style: TextStyle(fontSize: 20, color: Colors.blueAccent),),
-          onTap: () async {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyGoogleSignIn()));
-          },
-        ),
+        // ListTile(
+        //   leading: const Icon(
+        //     Icons.score,
+        //   ),
+        //   title: const Text('Change Password', style: TextStyle(fontSize: 20, color: Colors.blueAccent),),
+        //   onTap: () async {
+        //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyGoogleSignIn()));
+        //   },
+        // ),
         ListTile(
           leading: const Icon(
             Icons.logout,
@@ -102,6 +110,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
       ],
     ),
   );
-  
+      }) ,
+    
+    );
   }
 }

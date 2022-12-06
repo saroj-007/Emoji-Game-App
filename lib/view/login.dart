@@ -3,11 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
+import 'package:providerapp/provider/userdetail.dart';
 import 'package:providerapp/view/forgotpassword.dart';
 import 'package:providerapp/view/homescreen.dart';
 import 'package:providerapp/view/real_login_screen.dart';
 import 'package:providerapp/view/registrationform.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class login extends StatefulWidget {
   const login({super.key});
@@ -20,13 +23,66 @@ class _loginState extends State<login> {
 
   final _formKey = GlobalKey<FormState>();
 
+  // Variable declaration for remember me
   bool isRememberMe = false;
+
+  // Variable declaration for password visible or invisible
+  late bool _passwordVisible;
 
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
 
   // Obejct of auth class
   AuthServices au = AuthServices();
+
+  // remember me function
+  void rememberMe(bool value) {
+    isRememberMe = value;
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setBool("rememberMe", value);
+      prefs.setString("email", au.logEmails.text);
+      prefs.setString("password", au.logPass.text);
+    });
+
+    setState(() {
+      isRememberMe = value;
+      print(isRememberMe);
+      print(au.logEmails.text);
+      print(au.logPass.text);
+    });
+    
+  }
+
+  // loads email and password
+void _loadUserEmailPassword() async {
+try {
+SharedPreferences _prefs = await SharedPreferences.getInstance();
+var _email = _prefs.getString("email") ?? "";
+var _password = _prefs.getString("password") ?? "";
+var _remeberMe = _prefs.getBool("remember_me") ?? false;
+print(_remeberMe);
+print(_email);
+print(_password);
+print("my loves");
+if (_remeberMe) {
+setState(() {
+isRememberMe = true;
+});
+au.logEmails.text = _email ?? "";
+au.logPass.text = _password ?? "";
+}
+} catch (e) 
+{
+print(e);
+}
+}
+
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+    _loadUserEmailPassword();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +91,7 @@ class _loginState extends State<login> {
       body: Container(
             height: double.infinity,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -46,20 +102,9 @@ class _loginState extends State<login> {
                   Color(0xff6fa8dc),
                 ])
             ),
-      // Container(
-      //   width: MediaQuery.of(context).size.width,
-      //   height: MediaQuery.of(context).size.height,
-      //   decoration: const BoxDecoration(
-      //     image: DecorationImage(
-      //       image: AssetImage('assets/images/loginimage2.png'),
-      //       alignment: Alignment.topCenter,
-      //       fit: BoxFit.cover
-
-      //       )         
-      //   ),
 
         child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 25,
@@ -70,7 +115,7 @@ class _loginState extends State<login> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                   'Sign In',
                   style: TextStyle(
                     color: Colors.blueAccent,
@@ -78,7 +123,7 @@ class _loginState extends State<login> {
                     fontWeight: FontWeight.bold
                   ),
                 ),
-                SizedBox(height: 43,),
+               const  SizedBox(height: 43,),
 
                   // Email Address
                   Container(
@@ -86,7 +131,7 @@ class _loginState extends State<login> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black26,
                 blurRadius: 6,
@@ -125,7 +170,7 @@ class _loginState extends State<login> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black26,
                 blurRadius: 6,
@@ -135,11 +180,24 @@ class _loginState extends State<login> {
           ),
           height: 60,
                   child: TextFormField(
-                    obscureText: true,
+                    keyboardType: TextInputType.text,
+                    obscureText: !_passwordVisible,
                     controller: au.logPass,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            // Update the state
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                        ),
                       hintText: "Enter Your Password",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -167,7 +225,7 @@ class _loginState extends State<login> {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyLoginPage()));
         }, 
-      child: Padding(
+      child: const Padding(
         padding: EdgeInsets.only(right: 0),
         child: Text(
           'Forgot Password',
@@ -203,12 +261,11 @@ class _loginState extends State<login> {
             checkColor: Colors.blueAccent,
             activeColor: Colors.white,
             onChanged: (value) {
-              setState(() {
-                isRememberMe = value!;
-              });
-            }),
+              rememberMe(value!);
+            }
+              ),
             ),
-          Text(
+          const Text(
             'Remember Me',
             style: TextStyle(
               color: Colors.blueAccent,
@@ -219,7 +276,7 @@ class _loginState extends State<login> {
       ),
     ),
 
-    SizedBox(height: 30,),
+    const SizedBox(height: 30,),
 
                 // Login Button
               SizedBox(
@@ -239,6 +296,8 @@ class _loginState extends State<login> {
                       if (isValid) {
                       au.loginUser(context);
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    //                 final postModel = Provider.of<UserDetail>(context, listen: false);
+    // postModel.getTotalScore();
                         
                       }
                       else {
@@ -262,39 +321,53 @@ class _loginState extends State<login> {
               ),
 
               // Text -OR- keyword
-              SizedBox(height: 15,),
+             const SizedBox(height: 15,),
               const Text("OR",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
               ),
-              SizedBox(height: 15,),
+             const SizedBox(height: 15,),
 
               // Google SignIn
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
-                  minimumSize: const Size(double.infinity, 50)
+                  minimumSize: const Size(double.infinity, 60),
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
                 ),
                onPressed: () {
                 print("Hello World");
                }, 
-                icon: FaIcon(FontAwesomeIcons.google, color: Colors.red,), 
-                label: const Text('Sign Up with Google'),
+                icon: const FaIcon(FontAwesomeIcons.google, color: Colors.red,), 
+                label: const Text('Sign Up with Google',
+                style: TextStyle(
+                    fontSize: 23, 
+                    fontWeight: FontWeight.bold
+                    ),),
                 ),
 
+              // Text for registration
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, left: 75.0),
                 child: Row(
                   // ignore: prefer_const_literals_to_create_immutables
                   children: [
-                    const Text("Need an account?"),
+                    const Text("Need an account?",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black
+                    ),
+                    ),
                     GestureDetector(
                       onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegistrationForm()));
                      },
                       child: const Text(" SIGN UP", 
                       style: TextStyle(
+                        fontSize: 20,
                         fontWeight: FontWeight.bold, 
-                        color: Colors.blueAccent),
+                        color: Colors.white),
                         )
                         ),
                   ],
@@ -306,9 +379,6 @@ class _loginState extends State<login> {
           ),
         )
       )
-          
-          
-    
       );
     
   }

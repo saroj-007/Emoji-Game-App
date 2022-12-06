@@ -10,7 +10,7 @@ import 'package:providerapp/view/homescreen.dart';
 import 'package:providerapp/view/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthServices {
+class AuthServices extends ChangeNotifier{
 
   // Login text editing controllers
   final TextEditingController logEmails = TextEditingController();
@@ -97,6 +97,8 @@ class AuthServices {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.clear();
   print("User logout Successfully");
+ // rememberMe(isRememberMe);
+  
  }
 
  // Function for autlogin
@@ -110,6 +112,27 @@ class AuthServices {
     return true;
   }
  }
+
+ // Variable declaration for remember me
+  bool isRememberMe = false;
+
+  // remember me function
+  // void rememberMe(bool value) {
+  //   isRememberMe = value;
+  //   SharedPreferences.getInstance().then((prefs) {
+  //     prefs.setBool("rememberMe", value);
+  //     prefs.setString("email", logEmails.text);
+  //     prefs.setString("password", logPass.text);
+  //   });
+
+    
+  //     isRememberMe = value;
+  //     print(isRememberMe);
+  //     print(logEmails.text);
+  //     print(logPass.text);
+  
+  //   notifyListeners();
+  // }
 
  
 
