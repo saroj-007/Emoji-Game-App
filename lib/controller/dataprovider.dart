@@ -9,16 +9,12 @@ import 'package:providerapp/controller/fetchapiservice.dart';
 
 class DataProvider extends ChangeNotifier {
 
-  late Timer _timer;
-  String secondString = '00';
-  int seconds = 0;
+  
   
   SmileyModel? post;
   bool loading = false;
 
   bool _isButtonDisabled = true;
-
-  bool showResult = false;
 
   int _count = 0;
 
@@ -28,9 +24,9 @@ class DataProvider extends ChangeNotifier {
 
   String _result = "No Result";
 
-  int get count => _count;
+  
 
-  bool get solResult => showResult;
+  int get count => _count;
 
  int get rScore  => realScore;
 
@@ -39,10 +35,6 @@ class DataProvider extends ChangeNotifier {
   bool get btnResult => _isButtonDisabled;
 
   String get names => _name;
-
-  String get seondsResult => secondString;
-
-  int get secondTimer => seconds;
 
   getPostData() async {
    loading = true;
@@ -98,46 +90,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void timerResultReset() {
-    showResult = false;
-    notifyListeners();
-  }
-
-  // timer function
-  void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
-    startSecond();
-
-    if (seconds == 30) {
-     _timer.cancel();
-     showResult = true;
-    }
-
-    });
-   // notifyListeners();
-  }
-
-  void pauseTimer() {
-    _timer.cancel();
-  }
-
-// Pause timer
-void resetTimer() {
-  _timer.cancel();
-  seconds = 0;
-  secondString = "0";
-  notifyListeners();
-}
-
-  // Increase second
-  void startSecond() {
-    seconds ++;
-    secondString = seconds.toString();
-    if (secondString.length == 1){
-      secondString = "0" + secondString;
-    }
-    notifyListeners();
-  }
+  
 
 
   Future<void>  getUserDetail() async {

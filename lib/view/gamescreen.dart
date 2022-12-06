@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
 import 'package:providerapp/provider/userdetail.dart';
@@ -45,6 +46,7 @@ UserDetail ud = UserDetail();
     final postModel = Provider.of<DataProvider>(context, listen: false);
    // postModel.getPostData(); 
     postModel.getUserDetail();
+    postModel.startTimer();
     
     final scoreModel = Provider.of<UserDetail>(context, listen: false);
     scoreModel.getUserDetail();
@@ -136,11 +138,14 @@ UserDetail ud = UserDetail();
                            //  print(resButton);
 
                                // To check condition for the correct answer
-                               if (resButton) {
-                                 if ( res1 == _selectedNums){
+
+                              if (resButton) {
+                              if (providerValue.secondTimer < 30) {
+                              if ( res1 == _selectedNums){
                                providerValue.increment();
                                providerValue.getData();
                                providerValue.resCorrect();
+                               providerValue.pauseTimer();
                               // providerValue.getPostData();
                               // providerValue.resetRes();
                                // providerValue.resetScore();
@@ -151,10 +156,13 @@ UserDetail ud = UserDetail();
                                tries += 1;
                                print("Try: $tries");
                              }
-                               }     
-                                  
+                                  }
+
+                              else if (providerValue.secondTimer == 30){
+                                Fluttertoast.showToast(msg: "Timed Out", textColor: Colors.red);
+                              }         
+                               }               
                          }, 
-                         
                        child:  const Text("Submit",
                        ),
                        style: ElevatedButton.styleFrom(
@@ -170,8 +178,11 @@ UserDetail ud = UserDetail();
                          onPressed: () {
                            providerValue.getPostData();
                            providerValue.resetRes();
-                          // providerValue.resetScore();
                            providerValue.resetButton();
+                          providerValue.resetTimer();
+                          providerValue.timerResultReset();
+                          providerValue.startTimer();
+                          _selectedNums = 0;
                          }, 
                          child: const Text("New Game")),
                        ),
@@ -180,7 +191,8 @@ UserDetail ud = UserDetail();
                        padding: const EdgeInsets.all(8.0),
                        child: ElevatedButton(onPressed: (){
                providerValue.putScore();
-               
+               providerValue.resetTimer();
+               providerValue.timerResultReset();
                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen()));
              }, child: const Text("Quit")),
                      ),
@@ -204,7 +216,9 @@ UserDetail ud = UserDetail();
 
                          Padding(
                  padding: const EdgeInsets.only(left:50.0),
-                 child: Text("Hint: ${providerValue.post!.solution}", style: const TextStyle(fontSize: 20),),
+                 child: Text(providerValue.solResult ?
+                  "Hint: ${providerValue.post!.solution}" : ""
+                  , style: const TextStyle(fontSize: 20),),
                ),
 
                Padding(
@@ -213,6 +227,14 @@ UserDetail ud = UserDetail();
                ),
                        ],
                      ),
+
+                      SizedBox(height: 30,),
+                     // Timer Screen
+                     Container(
+                      child: Text(providerValue.secondString,
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.red),
+                      ),
+                     )
 
                    ],
                  ),    

@@ -68,8 +68,8 @@ if (_remeberMe) {
 setState(() {
 isRememberMe = true;
 });
-au.logEmails.text = _email ?? "";
-au.logPass.text = _password ?? "";
+au.logEmails.text = _email;
+au.logPass.text = _password;
 }
 } catch (e) 
 {

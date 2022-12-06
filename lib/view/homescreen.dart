@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final postModel = Provider.of<DataProvider>(context, listen: false);
     postModel.getPostData();
     postModel.getUserDetail();
+   // postModel.startTimer();
     
    // print(postModel.names);
 
