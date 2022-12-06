@@ -193,7 +193,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                   buildPassword(),
                   SizedBox(height: 20,),
                   buildForgetPassword(),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 7,),
                   buildRememberMe(),
               ]  
         
