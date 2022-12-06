@@ -37,25 +37,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     
       return  GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: FutureBuilder(
-          future: au.checkLoginStatus(),
-          builder: (context, authResult) {
-            if (authResult.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.red),);
-            }
-            else {
-              if (authResult.data == true) {
-                return HomeScreen();
+          debugShowCheckedModeBanner: false,
+          home: FutureBuilder(
+            future: au.checkLoginStatus(),
+            builder: (context, authResult) {
+              if (authResult.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.red),);
               }
               else {
-                return login();
+                if (authResult.data == true) {
+                  return HomeScreen();
+                }
+                else {
+                  return login();
+                }
               }
-            }
-          }),
-      );
-    
+            }),
+        );
   }
 }
 

@@ -103,7 +103,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // timer function
+  // timer function part
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
     startSecond();
@@ -117,11 +117,13 @@ class DataProvider extends ChangeNotifier {
    // notifyListeners();
   }
 
+  // Pause time function
   void pauseTimer() {
     _timer.cancel();
+    notifyListeners();
   }
 
-// Pause timer
+// Reset timer function
 void resetTimer() {
   _timer.cancel();
   seconds = 0;
@@ -129,7 +131,7 @@ void resetTimer() {
   notifyListeners();
 }
 
-  // Increase second
+  // Increase timer
   void startSecond() {
     seconds ++;
     secondString = seconds.toString();
@@ -139,7 +141,8 @@ void resetTimer() {
     notifyListeners();
   }
 
-
+  // Get user detail part
+  // User detail function
   Future<void>  getUserDetail() async {
   final user = FirebaseAuth.instance.currentUser;
   final uid1 = user!.uid;
@@ -154,6 +157,7 @@ void resetTimer() {
   
   }
 
+  // Function to store score
   Future<void> putScore() async {
     final user = FirebaseAuth.instance.currentUser;
     final uid1 = user!.uid;

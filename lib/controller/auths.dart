@@ -97,11 +97,11 @@ class AuthServices extends ChangeNotifier{
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.clear();
   print("User logout Successfully");
- // rememberMe(isRememberMe);
+ 
   
  }
 
- // Function for autlogin
+ // Function for autologin
  Future<bool> checkLoginStatus() async {
   var value = await SharedPreferences.getInstance();
   if (!value.containsKey("userID"))

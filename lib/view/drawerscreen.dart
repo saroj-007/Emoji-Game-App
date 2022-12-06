@@ -104,7 +104,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
           title: const Text('logout', style: TextStyle(fontSize: 20, color: Colors.blueAccent),),
           onTap: () {
             au.logoutUser();
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const login()));
+           Navigator.of(context).push(MaterialPageRoute(builder: (context) => const login()));
+          // Navigator.pushAndRemoveUntil(
+          //           context,
+          //           MaterialPageRoute(builder: (context) => login()),
+          //           (route) => false);
           },
         ),
       ],

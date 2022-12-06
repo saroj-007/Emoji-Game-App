@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:providerapp/view/login.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -88,6 +89,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         bool isValid = EmailValidator.validate(emails.text);
                         if (isValid) {
                           forgotPassword();
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const login()));
                         }
                         else {
                           Fluttertoast.showToast(msg: "Invalid email address entered");

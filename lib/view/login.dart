@@ -64,12 +64,14 @@ print(_remeberMe);
 print(_email);
 print(_password);
 print("my loves");
+
 if (_remeberMe) {
 setState(() {
 isRememberMe = true;
 });
-au.logEmails.text = _email;
-au.logPass.text = _password;
+
+au.logEmails.text = _email ?? "";
+au.logPass.text = _password ?? "";
 }
 } catch (e) 
 {
@@ -223,7 +225,7 @@ print(e);
       alignment: Alignment.centerRight,
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyLoginPage()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ForgotPassword()));
         }, 
       child: const Padding(
         padding: EdgeInsets.only(right: 0),
@@ -238,17 +240,7 @@ print(e);
       
       ),
 
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyLoginPage()));
-                //   },
-                //   child: const Padding(
-                //     padding: EdgeInsets.only(top: 12.0, left: 190),
-                //     child: Text("Forgot Password", style: TextStyle(color: Colors.blueAccent),),
-                //   ),
-                // ),
-
-                // const SizedBox(height: 20,),
+                
 
                  Container(
       height: 20,

@@ -71,6 +71,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                 ])
             ),
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.only(top: 30, left: 20.0, right: 20, bottom: 20),
             child: Column(
@@ -82,8 +83,10 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                   child: Container(
                     child: TextFormField(
                       controller: ud.userNameController,
+                      
                       style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                       decoration: InputDecoration(
+                        label: Text("Name"),
                         hintText: "Enter User name",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -106,6 +109,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                       controller: ud.addressController,
                       style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                       decoration: InputDecoration(
+                        label: Text("Address"),
                         hintText: "Enter Your Address",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -126,6 +130,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                       controller: ud.mobileController,
                       style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                       decoration: InputDecoration(
+                        label: Text("Mobile"),
                         hintText: "Enter Mobile Number",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -146,6 +151,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                       style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                       readOnly: true,
                       decoration: InputDecoration(
+                        label: Text("Email"),
                         hintText: "Enter Your Email Address",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -162,9 +168,11 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Container(
                     child: TextFormField(
+                      obscureText: true,
                       controller: ud.passController,
                       style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                       decoration: InputDecoration(
+                        label: Text("Password"),
                         hintText: "Enter Password",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
