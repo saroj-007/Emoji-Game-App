@@ -163,62 +163,87 @@ void resetTimer() {
     final uid1 = user!.uid;
     final firestore = FirebaseFirestore.instance;
 
-  //   firestore.collection('scores').doc(uid1).set({
-  //      "Name" : _name,
-  //      "Score" : _count
-
-  //      }
-  // );
-    
-    
-    // Get score data from the firestore
     DocumentSnapshot snapshot = await firestore.collection('scores').doc(uid1).get();
-    var data1 = snapshot.data() as Map;
-    int Scores = data1['Score'];
-    
-    // Check condition
-    if (Scores == 0) {
+
+   if (snapshot == null || !snapshot.exists) {
       firestore.collection('scores').doc(uid1).set({
        "Name" : _name,
        "Score" : _count
-  }
+  } 
   );
-    }
+   }
     else {
-  realScore = _count + Scores;
-  print("update score: $realScore");
+    var data1 = snapshot.data() as Map;
+    int Scores = data1['Score'];
+
+    realScore = _count + Scores;
+    print("update score: $realScore");
     firestore.collection('scores').doc(uid1).set(
-    {"Score" : realScore}
+    {
+      "Name" : _name,
+      "Score" : realScore
+      }
   );
+
     }
+
+    
+  //   // Get score data from the firestore
+  //   DocumentSnapshot snapshot = await firestore.collection('scores').doc(uid1).get();
+  //   var data1 = snapshot.data() as Map;
+  //   int Scores = data1['Score'];
+    
+  //   // Check condition
+  //   if (Scores == 0) {
+  //     firestore.collection('scores').doc(uid1).set({
+  //      "Name" : _name,
+  //      "Score" : _count
+  // }
+  // );
+  //   }
+  //   else {
+  // realScore = _count + Scores;
+  // print("update score: $realScore");
+  //   firestore.collection('scores').doc(uid1).set(
+  //   {"Score" : realScore}
+  // );
+  //   }
     
   notifyListeners();
   }
 
-  // Update the score
-//  Future<void> updateScore() async {
-//   final user = FirebaseAuth.instance.currentUser;
+  // Google Input Score
+  Future<void> storeScore() async {
+    final user = FirebaseAuth.instance.currentUser!.uid;
+    final firestore = FirebaseFirestore.instance;
+    String? names = FirebaseAuth.instance.currentUser!.displayName;
+    DocumentSnapshot snapshot = await firestore.collection('scores').doc(user).get();
 
-//   final getUser = FirebaseFirestore.instance;
+   if (snapshot == null || !snapshot.exists) {
+      firestore.collection('scores').doc(user).set({
+       "Name" : names,
+       "Score" : _count
+  } 
+  );
+   }
+    else {
+      DocumentSnapshot snapshot = await firestore.collection('scores').doc(user).get();
+    var data1 = snapshot.data() as Map;
+    int Scores = data1['Score'];
 
-//   DataProvider dt = DataProvider();
-//   int sc = dt.count;
-  
-//   final uid1 = user!.uid;
-//   DocumentSnapshot snapshot = await getUser.collection('users').doc(uid1).get();
-//   final data1 = snapshot.data() as Map;
+    realScore = _count + Scores;
+    print("update score: $realScore");
+    firestore.collection('scores').doc(user).set(
+    {
+      "Name" : names,
+      "Score" : realScore
+      }
+  );
 
-//   int Scores = data1['Score'];
-//   print("store data: $Scores");
-//   realScore = sc + Scores;
-//   print("update score: $realScore");
-//     getUser.collection('scores').doc(uid1).set(
-//     {"Score" : realScore}
-//   );
-  
-//   notifyListeners();
-//  }
+    }
 
+  notifyListeners();
+  }
  }
 
 

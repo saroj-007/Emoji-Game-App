@@ -6,8 +6,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
 import 'package:providerapp/controller/google_sigin_service.dart';
+import 'package:providerapp/provider/dataprovider.dart';
 import 'package:providerapp/provider/userdetail.dart';
 import 'package:providerapp/view/forgotpassword.dart';
+import 'package:providerapp/view/google_home.dart';
 import 'package:providerapp/view/google_profile.dart';
 import 'package:providerapp/view/googlesigning.dart';
 import 'package:providerapp/view/homescreen.dart';
@@ -88,6 +90,8 @@ print(e);
   void initState() {
     _passwordVisible = false;
     _loadUserEmailPassword();
+    super.initState();
+
   }
 
   @override
@@ -334,7 +338,7 @@ print(e);
                onPressed: () async {
                 print("Hello World");
                await gs.googleSignIn();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleProfile()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const GoogleHome()));
                 
                }, 
                 icon: const FaIcon(FontAwesomeIcons.google, color: Colors.red,), 

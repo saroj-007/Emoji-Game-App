@@ -18,6 +18,8 @@ class GoogleService {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken);
           await _auth.signInWithCredential(authCredential);
+
+        print(_auth.currentUser!.uid); 
       }
     }
     on FirebaseAuthException catch (e) {
@@ -27,7 +29,7 @@ class GoogleService {
   }
 
   googleLogout() async {
-   //GoogleSignIn().disconnect();
+    GoogleSignIn().disconnect();
     FirebaseAuth.instance.signOut();
   }
 }

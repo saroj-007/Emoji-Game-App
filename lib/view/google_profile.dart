@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:providerapp/controller/google_sigin_service.dart';
-import 'package:providerapp/login.dart';
+import 'package:providerapp/provider/userdetail.dart';
+import 'package:providerapp/view/login.dart';
 
 class GoogleProfile extends StatefulWidget {
   const GoogleProfile({super.key});
@@ -19,16 +21,12 @@ class _GoogleProfileState extends State<GoogleProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final postModel = Provider.of<UserDetail>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        // actions: [
-        //   TextButton(onPressed: () async {
-        //     gp.googleLogout();
-        //   }, 
-        //   child: Text("logout"))
-        // ],
+        
         title:  Text("Profile"),
-       // centerTitle: true,
+        centerTitle: true,
       ),
 
       body: Container(
@@ -36,16 +34,36 @@ class _GoogleProfileState extends State<GoogleProfile> {
         height: double.infinity,
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+           // mainAxisAlignment: MainAxisAlignment.top,
             children: [
-              CircleAvatar(child: Image.network(FirebaseAuth.instance.currentUser!.photoURL!)),
-              Text("Name: ${FirebaseAuth.instance.currentUser!.displayName}"),
-              Text("Email: ${FirebaseAuth.instance.currentUser!.email}"),
+              Padding(
+                padding: const EdgeInsets.only(top: 80, right: 80, left: 80, bottom: 20),
+                child: CircleAvatar(
+                          radius: 60,
+                          backgroundImage: NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!,),  
+                          backgroundColor: Colors.blueAccent,
+                        ),
+              ),
 
-              ElevatedButton(onPressed: () {
-                gp.googleLogout();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const login()));
-              }, child: Text("Logout"))
+              // Name from google
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 20, right: 20),
+                child: Text("Name: ${FirebaseAuth.instance.currentUser!.displayName}",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Email: ${FirebaseAuth.instance.currentUser!.email}",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 20, right: 20),
+                child: Text("Score: ${postModel.getScore}",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),),
+              ),
             ],
           ),
         ),

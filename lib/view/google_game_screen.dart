@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
-import 'package:providerapp/provider/userdetail.dart';
 import 'package:providerapp/provider/dataprovider.dart';
-
+import 'package:providerapp/view/google_home.dart';
 import 'package:providerapp/view/homescreen.dart';
 
-
-class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+class GoogleGame extends StatefulWidget {
+  const GoogleGame({super.key});
 
   @override
-  State<GameScreen> createState() => _GameScreenState();
+  State<GoogleGame> createState() => _GoogleGameState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _GoogleGameState extends State<GoogleGame> {
 
- final TextEditingController user1 = TextEditingController();
+  final TextEditingController user1 = TextEditingController();
 
  String _resultCheck = "No Result";
  String res = "";
@@ -32,24 +30,12 @@ class _GameScreenState extends State<GameScreen> {
 
 AuthServices au = AuthServices();
 
-UserDetail ud = UserDetail();
+ //UserDetail ud = UserDetail();
 
-@override
-  void initState() {
-    super.initState();
-    final postModel = Provider.of<DataProvider>(context, listen: false);
-   // postModel.getPostData(); 
-    postModel.getUserDetail();
-    postModel.startTimer();
-    
-    final scoreModel = Provider.of<UserDetail>(context, listen: false);
-    scoreModel.getUserDetail();
-
-  }
 
   @override
   Widget build(BuildContext context) {
-    final scoreModel = Provider.of<UserDetail>(context, listen: false);
+   // final scoreModel = Provider.of<UserDetail>(context, listen: false);
      return Consumer<DataProvider>(
        builder: (context, providerValue, child) {
          return Scaffold(
@@ -184,10 +170,10 @@ UserDetail ud = UserDetail();
                        Padding(
                        padding: const EdgeInsets.all(8.0),
                        child: ElevatedButton(onPressed: (){
-               providerValue.putScore();
+               providerValue.storeScore();
                providerValue.resetTimer();
                providerValue.timerResultReset();
-               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen()));
+               Navigator.of(context).push(MaterialPageRoute(builder: (context) => GoogleHome()));
              }, child: const Text("Quit")),
                      ),
                                  ],
@@ -238,8 +224,5 @@ UserDetail ud = UserDetail();
        },  
        
      );
-      //  drawer: MyDrawer(),
-        
-  
   }
 }
