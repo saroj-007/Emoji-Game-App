@@ -153,12 +153,6 @@ void resetTimer() {
     notifyListeners();
   }
 
-  // Firebase Authentication Instance
-  final user = FirebaseAuth.instance.currentUser!.uid;
-
-  // Cloud Firestore instance
-  final firestore = FirebaseFirestore.instance;
-
  // Function to get user detail from the cloud firestore and authentication
   Future<void>  getUserDetail() async {
    // Get the current user userid after logging on to the system 
@@ -235,8 +229,8 @@ void resetTimer() {
 
   // Function to display user game score
   Future<void> showScore() async {
-   // final user = FirebaseAuth.instance.currentUser!.uid;
-   // final firestore = FirebaseFirestore.instance;
+   final user = FirebaseAuth.instance.currentUser!.uid;
+   final firestore = FirebaseFirestore.instance;
     DocumentSnapshot snapshot = await firestore.collection('scores').doc(user).get();
      var data1 = snapshot.data() as Map;
     int Scores = data1['Score'];
@@ -248,8 +242,8 @@ void resetTimer() {
 
   // Google Input Score
   Future<void> storeScore() async {
-   // final user = FirebaseAuth.instance.currentUser!.uid;
-    //final firestore = FirebaseFirestore.instance;
+   final user = FirebaseAuth.instance.currentUser!.uid;
+    final firestore = FirebaseFirestore.instance;
     String? names = FirebaseAuth.instance.currentUser!.displayName;
     DocumentSnapshot snapshot = await firestore.collection('scores').doc(user).get();
 

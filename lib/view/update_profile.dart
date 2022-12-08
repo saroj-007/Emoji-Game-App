@@ -1,11 +1,5 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
-import 'package:providerapp/controller/auths.dart';
 import 'package:providerapp/controller/userdetail.dart';
 import 'package:providerapp/view/viewprofile.dart';
 
@@ -22,16 +16,7 @@ class _UpdateMyProfileState extends State<UpdateMyProfile> {
 
   // Variable declaration for password visible or invisible
   late bool _passwordVisible;
-
-  // final userNameController = TextEditingController();
-  // final TextEditingController addressController = TextEditingController();
-  // final TextEditingController mobileController = TextEditingController();
-  // final TextEditingController emailController = TextEditingController();
-  // final TextEditingController passController = TextEditingController();
-
   UserDetail ud = UserDetail();
-
-
 
   @override
   void initState() {

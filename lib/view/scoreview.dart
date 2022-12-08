@@ -1,10 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:providerapp/controller/dataprovider.dart';
 import 'package:providerapp/controller/userdetail.dart';
 
 class MyScore extends StatefulWidget {

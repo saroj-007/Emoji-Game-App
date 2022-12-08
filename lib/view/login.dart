@@ -3,17 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
 import 'package:providerapp/controller/google_sigin_service.dart';
-import 'package:providerapp/controller/dataprovider.dart';
-import 'package:providerapp/controller/userdetail.dart';
 import 'package:providerapp/view/forgotpassword.dart';
 import 'package:providerapp/view/google_home.dart';
-import 'package:providerapp/view/google_profile.dart';
-import 'package:providerapp/view/googlesigning.dart';
-import 'package:providerapp/view/homescreen.dart';
-import 'package:providerapp/view/real_login_screen.dart';
 import 'package:providerapp/view/registrationform.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
 import 'package:providerapp/controller/dataprovider.dart';
 import 'package:providerapp/view/google_home.dart';
-import 'package:providerapp/view/homescreen.dart';
 
 class GoogleGame extends StatefulWidget {
   const GoogleGame({super.key});

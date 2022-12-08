@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
 import 'package:providerapp/controller/dataprovider.dart';
 import 'package:providerapp/controller/userdetail.dart';
-import 'package:providerapp/view/googlesigning.dart';
 import 'package:providerapp/view/login.dart';
 import 'package:providerapp/view/scoreview.dart';
 import 'package:providerapp/view/viewprofile.dart';

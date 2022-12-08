@@ -4,9 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
 import 'package:providerapp/controller/userdetail.dart';
 import 'package:providerapp/controller/dataprovider.dart';
-
 import 'package:providerapp/view/homescreen.dart';
-
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -241,9 +239,7 @@ UserDetail ud = UserDetail();
            );
        },  
        
-     );
-      //  drawer: MyDrawer(),
-        
+     );    
   
   }
 }

@@ -1,13 +1,10 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/google_sigin_service.dart';
 import 'package:providerapp/controller/dataprovider.dart';
-import 'package:providerapp/controller/userdetail.dart';
-import 'package:providerapp/view/login.dart';
+
 
 class GoogleProfile extends StatefulWidget {
   const GoogleProfile({super.key});

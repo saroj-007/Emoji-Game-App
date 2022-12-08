@@ -1,10 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/userdetail.dart';
-import 'package:providerapp/view/drawerscreen.dart';
 import 'package:providerapp/view/homescreen.dart';
 import 'package:providerapp/view/update_profile.dart';
 
@@ -161,7 +157,7 @@ class _MyProfileState extends State<MyProfile> {
                  
                 ),
                   onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateMyProfile(
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateMyProfile(
                   )));
                         }, 
                         child: const Text('Edit Profile', 
