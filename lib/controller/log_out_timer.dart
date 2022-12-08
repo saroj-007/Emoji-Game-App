@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:developer';
+
 
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:providerapp/controller/auths.dart';
-import 'package:providerapp/login.dart';
+
 
 class LogoutTimer {
 
@@ -33,7 +33,6 @@ class LogoutTimer {
   void autoLogout() {
     _timer.cancel();
    // au.logoutUser();
-   Get.to(login());
   }
 
   // You'll probably want to wrap this function in a debounce

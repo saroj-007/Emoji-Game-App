@@ -8,7 +8,8 @@ import 'package:providerapp/model/apimodel.dart';
 import 'package:providerapp/controller/fetchapiservice.dart';
 
 class DataProvider extends ChangeNotifier {
-
+  
+  // Instances 
   late Timer _timer;
   String secondString = '00';
   int seconds = 0;
@@ -28,6 +29,7 @@ class DataProvider extends ChangeNotifier {
 
   String _result = "No Result";
 
+  // getter methods
   int get count => _count;
 
   bool get solResult => showResult;
@@ -44,6 +46,7 @@ class DataProvider extends ChangeNotifier {
 
   int get secondTimer => seconds;
 
+  // Function to fetch json data from the api and stored in the model class
   getPostData() async {
    loading = true;
     post = (await SmileyApi().getDatas());
@@ -52,62 +55,71 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Function for score increment
   void increment() {
     _count++;
     _isButtonDisabled = false;
     notifyListeners();
   }
 
+  // Return function for display score result
   int getData() {
     print("My Score is: $_count");
     return _count;
    // notifyListeners();
   }
-
+  
+  // Function for score data reset
   void resetData() {
     _count = 0;
     notifyListeners();
   }
-
+  
+  // Function for reset submit button  after disable by provide right answer
   void resetButton() {
     _isButtonDisabled = true;
     notifyListeners();
   }
 
+  // Function for score reset after exit from the game
   void resetScore() {
     _count = 0;
     notifyListeners();
   }
 
+  // Function for store string data correct
   void resCorrect() {
     _result = "Correct";
     print(_result);
     notifyListeners();
   }
 
-
+  // Function for store string data incorrect
   void resIncorrect() {
     _result = "Incorrect";
     print(_result);
     notifyListeners();
   }
 
+  // Function for store string data noresult
   void resetRes() {
     _result = "No Result";
     print(_result);
     notifyListeners();
   }
 
+  // Function for timer result reset after reached at end
   void timerResultReset() {
     showResult = false;
     notifyListeners();
   }
 
-  // timer function part
+  // Timer function for start the time
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
     startSecond();
 
+    // Check condition and when result meet then timer stop
     if (seconds == 30) {
      _timer.cancel();
      showResult = true;
@@ -117,13 +129,13 @@ class DataProvider extends ChangeNotifier {
    // notifyListeners();
   }
 
-  // Pause time function
+  // Timer function for pause the time
   void pauseTimer() {
     _timer.cancel();
     notifyListeners();
   }
 
-// Reset timer function
+// Timer function for reset the time
 void resetTimer() {
   _timer.cancel();
   seconds = 0;
@@ -131,7 +143,7 @@ void resetTimer() {
   notifyListeners();
 }
 
-  // Increase timer
+  // Timer function to increase the time by 1 second
   void startSecond() {
     seconds ++;
     secondString = seconds.toString();
@@ -141,23 +153,32 @@ void resetTimer() {
     notifyListeners();
   }
 
-  // Get user detail part
-  // User detail function
+  // Firebase Authentication Instance
+  final user = FirebaseAuth.instance.currentUser!.uid;
+
+  // Cloud Firestore instance
+  final firestore = FirebaseFirestore.instance;
+
+ // Function to get user detail from the cloud firestore and authentication
   Future<void>  getUserDetail() async {
+   // Get the current user userid after logging on to the system 
   final user = FirebaseAuth.instance.currentUser;
   final uid1 = user!.uid;
 
+  // Get userid from the firestore
   final getUser = FirebaseFirestore.instance.collection('users');
-
   DocumentSnapshot snapshot = await getUser.doc(uid1).get();
+
+  // Store the current user data with the help of userid and stored data in  map format in variable
   var data1 = snapshot.data() as Map;
   
+    // Store in string variable
   _name = data1['Name'];
   notifyListeners();
   
   }
 
-  // Function to store score
+  // Function to store user game score
   Future<void> putScore() async {
     final user = FirebaseAuth.instance.currentUser;
     final uid1 = user!.uid;
@@ -212,9 +233,10 @@ void resetTimer() {
   notifyListeners();
   }
 
+  // Function to display user game score
   Future<void> showScore() async {
-    final user = FirebaseAuth.instance.currentUser!.uid;
-    final firestore = FirebaseFirestore.instance;
+   // final user = FirebaseAuth.instance.currentUser!.uid;
+   // final firestore = FirebaseFirestore.instance;
     DocumentSnapshot snapshot = await firestore.collection('scores').doc(user).get();
      var data1 = snapshot.data() as Map;
     int Scores = data1['Score'];
@@ -226,8 +248,8 @@ void resetTimer() {
 
   // Google Input Score
   Future<void> storeScore() async {
-    final user = FirebaseAuth.instance.currentUser!.uid;
-    final firestore = FirebaseFirestore.instance;
+   // final user = FirebaseAuth.instance.currentUser!.uid;
+    //final firestore = FirebaseFirestore.instance;
     String? names = FirebaseAuth.instance.currentUser!.displayName;
     DocumentSnapshot snapshot = await firestore.collection('scores').doc(user).get();
 

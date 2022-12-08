@@ -7,10 +7,11 @@ import 'package:providerapp/controller/dataprovider.dart';
 
 class UserDetail extends ChangeNotifier{
 
+  // Instances for firestore and authentication
   final user = FirebaseAuth.instance.currentUser;
-
   final getUser = FirebaseFirestore.instance;
   
+  // Text editing controller instances
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
@@ -18,7 +19,7 @@ class UserDetail extends ChangeNotifier{
   final TextEditingController passController = TextEditingController();
   final TextEditingController confirmPassController = TextEditingController();
 
-
+  // Declare variables
   String Name = "";
   String Address = "";
   String Email = "";
@@ -26,19 +27,18 @@ class UserDetail extends ChangeNotifier{
   String Password = "";
 
   int Scores = 0;
-
   int level = 0;
 
+  // Getter methods
   int get getScore => Scores;
   int get getLevel => level;
-
   String get getName => Name;
   String get getAddress => Address;
   String get getEmail => Email;
   String get getPhone => Phone;
   String get getPassword => Password;
 
-  // Get User detail
+  // Function to get user data from cloud firestore
  Future<void>  getUserDetail() async {
   final uid1 = user!.uid;
   DocumentSnapshot snapshot = await getUser.collection('users').doc(uid1).get();
@@ -59,7 +59,7 @@ class UserDetail extends ChangeNotifier{
   notifyListeners();
  }
  
- // Function to get total score from the cloud database
+ // Function to user game played score data from the cloud database
  Future<void>  getTotalScore() async {
   
   final uid1 = user!.uid;
@@ -79,9 +79,9 @@ class UserDetail extends ChangeNotifier{
   notifyListeners();
  }
 
- // Update user profile 
+ // Function for updation user data
  Future<void> updateUser() async {
-  // Firestore instance
+  
  final firestore = FirebaseFirestore.instance;
   final uid1 = user!.uid;
  
@@ -105,7 +105,7 @@ class UserDetail extends ChangeNotifier{
 
  }
 
- // Delete user score
+ // function for delete user score
  Future<void> deleteScore() async {
   final uid1 = user!.uid;
   final firestore = FirebaseFirestore.instance;
@@ -127,7 +127,7 @@ class UserDetail extends ChangeNotifier{
    notifyListeners();
  }
 
- 
+ // function to show user game level after getting score
   void levelGrow() {
     int scores = getScore;
     print(scores);

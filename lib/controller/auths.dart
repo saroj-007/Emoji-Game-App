@@ -29,20 +29,25 @@ class AuthServices extends ChangeNotifier{
  final firestore = FirebaseFirestore.instance;
 
 
- // For new user account
+ // Function for new user account
  Future<void> newAccount(context) async {
   
   try {
+    // Create authentication account with email and password
     final user = await _auth.createUserWithEmailAndPassword(
     email: emailController.text, 
     password: passController.text);
-
+    
+    // Get data from cloud firestore
     DocumentSnapshot snapshot = await firestore.collection('users').doc(emailController.text).get();
-
+    
+    // Check condition whether firestore contain user collection or not
     if (snapshot.exists) {
       Fluttertoast.showToast(msg: "User email already exists");
     }
     else {
+
+      // if there is new user with new id then data store in collection
       firestore.collection('users').doc(user.user!.uid).set({
     "Name" : userNameController.text,
     "Address" : addressController.text,
@@ -66,20 +71,24 @@ class AuthServices extends ChangeNotifier{
 
  
 
- // For login method
+ // Function for login method login method
  Future<void> loginUser(context) async {
+  // try catch block
   try {
+    // login authentication with email and password provided by user
     final user = await _auth.signInWithEmailAndPassword(
     email: logEmails.text, 
     password: logPass.text);
 
+    // Check if authentication contain valid user email with password
     if (user != null) {
      print("Login Successfully");
    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
 
-   // Save user login with shared preferences
+   // Save user login email and password with help of shared preferences for future work
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    
+    // Set respective user id after valid login credential
     prefs.setString("userID", user.user!.uid);
     print("user id saved");
     print(prefs.getString("userID"));
@@ -101,51 +110,15 @@ class AuthServices extends ChangeNotifier{
 
  // Function for logout user
  Future<void> logoutUser() async {
+  // Authentication funcation for signout
   await _auth.signOut();
+
+  // Get data which were stored in sharedpreferences after login
   SharedPreferences prefs = await SharedPreferences.getInstance();
   //prefs.clear();
   print("User logout Successfully");
  
   
  }
-
- // Function for autologin
- Future<bool> checkLoginStatus() async {
-  var value = await SharedPreferences.getInstance();
-  if (!value.containsKey("userID"))
-  {
-    return false;
-  }
-  else {
-    return true;
-  }
- }
-
-  Future<void> googleLogin() async {
-    print("Google Login Method Called");
-    GoogleSignIn _googleSignIn = GoogleSignIn();
-    try{
-      var res = await _googleSignIn.signIn();
-      if (res == null) {
-        return;
-      }
-
-      final userData = await res.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: userData.accessToken, idToken: userData.idToken
-      );
-      var finalResult = await FirebaseAuth.instance.signInWithCredential(credential);
-      print("User detail");
-      print(res.displayName);
-      print(res.email);
-      print(res.photoUrl);
-      print(res.id);
-    }
-    catch(e) {
-
-    }
-  }
-
- 
 
  }

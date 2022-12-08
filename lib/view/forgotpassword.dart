@@ -17,6 +17,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   TextEditingController emails = TextEditingController();
 
+  // function for recovering password if user forget password by sending an email verification link
   forgotPassword() async {
     try {
       await FirebaseAuth.instance
@@ -100,11 +101,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                
               ),
                       onPressed: () {
-                        print("Hello 1");
 
+                        // Check whether the text field left blank or not
                         if (_formKey.currentState!.validate()){
-                          print("Hello 2");
+
+                          // check the email validation and store boolean result
                           bool isValid = EmailValidator.validate(emails.text);
+
+                          // Check whether the email valid or not
+                          // if valid then route to diffrent page 
                           if (isValid) {
                             forgotPassword();
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const login()));

@@ -19,23 +19,25 @@ class _GameScreenState extends State<GameScreen> {
 
  final TextEditingController user1 = TextEditingController();
 
+  // Variable Declaration
  String _resultCheck = "No Result";
  String res = "";
 
  int score = 0;
  int tries = 0;
-
-  
  late int _selectedNums = 0;
-  
-  List<int> nums = [0,1,2,3,4,5,6,7,8,9];
 
+// list of integer from 0 to 9 and stored in variable 
+ List<int> nums = [0,1,2,3,4,5,6,7,8,9];
+
+// Object Creation
 AuthServices au = AuthServices();
-
 UserDetail ud = UserDetail();
 
 @override
   void initState() {
+
+    // Called all the function at the time of page running
     super.initState();
     final postModel = Provider.of<DataProvider>(context, listen: false);
    // postModel.getPostData(); 
@@ -69,6 +71,7 @@ UserDetail ud = UserDetail();
                    children: [
                      Container(
                        
+                       // Fetched image data from the api
                      child: Image(image: NetworkImage(providerValue.post!.question.toString())),
                      ),
                      
@@ -129,12 +132,13 @@ UserDetail ud = UserDetail();
                              var res1 = providerValue.post!.solution;
 
                              bool resButton = providerValue.btnResult;
-                           //  print(resButton);
-
+                          
                                // To check condition for the correct answer
-
                               if (resButton) {
+                              // Condition for timer 
                               if (providerValue.secondTimer < 30) {
+
+                              // Condition for correct answers
                               if ( res1 == _selectedNums){
                                providerValue.increment();
                                providerValue.getData();

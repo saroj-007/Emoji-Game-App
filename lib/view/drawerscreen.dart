@@ -19,21 +19,23 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+
+  // Create an object of AuthSerices class to get variables and methods
   AuthServices au = AuthServices();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    // Call the provider class and its functions
     final postModel = Provider.of<UserDetail>(context, listen: false);
     postModel.getTotalScore();
   }
 
   @override
   Widget build(BuildContext context) {
-
    final scoreModel = Provider.of<DataProvider>(context, listen: false);
-
    final postModel = Provider.of<UserDetail>(context, listen: false);
    
     return Scaffold(
