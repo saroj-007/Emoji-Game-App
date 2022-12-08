@@ -5,8 +5,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
+import 'package:providerapp/controller/google_sigin_service.dart';
 import 'package:providerapp/provider/userdetail.dart';
 import 'package:providerapp/view/forgotpassword.dart';
+import 'package:providerapp/view/google_profile.dart';
+import 'package:providerapp/view/googlesigning.dart';
 import 'package:providerapp/view/homescreen.dart';
 import 'package:providerapp/view/real_login_screen.dart';
 import 'package:providerapp/view/registrationform.dart';
@@ -35,18 +38,20 @@ class _loginState extends State<login> {
   // Obejct of auth class
   AuthServices au = AuthServices();
 
+  GoogleService gs = GoogleService();
+
   // remember me function
   void rememberMe(bool value) {
     isRememberMe = value;
     SharedPreferences.getInstance().then((prefs) {
       prefs.setBool("rememberMe", value);
-      prefs.setString("email", au.logEmails.text);
-      prefs.setString("password", au.logPass.text);
+      prefs.setString("emailID", au.logEmails.text);
+      prefs.setString("passID", au.logPass.text);
     });
 
     setState(() {
       isRememberMe = value;
-      print(isRememberMe);
+      print("Tick answer is $isRememberMe");
       print(au.logEmails.text);
       print(au.logPass.text);
     });
@@ -57,21 +62,20 @@ class _loginState extends State<login> {
 void _loadUserEmailPassword() async {
 try {
 SharedPreferences _prefs = await SharedPreferences.getInstance();
-var _email = _prefs.getString("email") ?? "";
-var _password = _prefs.getString("password") ?? "";
-var _remeberMe = _prefs.getBool("remember_me") ?? false;
-print(_remeberMe);
+var _email = _prefs.getString("emailID") ?? "";
+var _password = _prefs.getString("passID") ?? "";
+var _remeberMe = _prefs.getBool("rememberMe") ?? false;
+print("my last checkout $_remeberMe");
 print(_email);
 print(_password);
-print("my loves");
 
 if (_remeberMe) {
 setState(() {
 isRememberMe = true;
 });
 
-au.logEmails.text = _email ?? "";
-au.logPass.text = _password ?? "";
+au.logEmails.text = _email;
+// au.logPass.text = _password;
 }
 } catch (e) 
 {
@@ -288,8 +292,7 @@ print(e);
                       if (isValid) {
                       au.loginUser(context);
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    //                 final postModel = Provider.of<UserDetail>(context, listen: false);
-    // postModel.getTotalScore();
+   
                         
                       }
                       else {
@@ -328,11 +331,14 @@ print(e);
                   shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
                 ),
-               onPressed: () {
+               onPressed: () async {
                 print("Hello World");
+               await gs.googleSignIn();
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleProfile()));
+                
                }, 
                 icon: const FaIcon(FontAwesomeIcons.google, color: Colors.red,), 
-                label: const Text('Sign Up with Google',
+                label: const Text('Sign In with Google',
                 style: TextStyle(
                     fontSize: 23, 
                     fontWeight: FontWeight.bold

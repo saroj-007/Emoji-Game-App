@@ -50,7 +50,7 @@ class UserDetail extends ChangeNotifier{
   notifyListeners();
  }
  
- 
+ // Function to get total score from the cloud database
  Future<void>  getTotalScore() async {
   
   final uid1 = user!.uid;

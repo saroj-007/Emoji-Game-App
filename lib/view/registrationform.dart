@@ -210,10 +210,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
               ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()){
-                          bool isValid = EmailValidator.validate(au.logEmails.text);
+                          bool isValid = EmailValidator.validate(au.emailController.text);
 
                           if (isValid) {
-                            au.newAccount();
+                            au.newAccount(context);
                             print("Registration Successfull");
                             
                           }

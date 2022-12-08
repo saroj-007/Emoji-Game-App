@@ -1,11 +1,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:providerapp/view/homescreen.dart';
 import 'package:providerapp/view/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,8 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthServices extends ChangeNotifier{
 
   // Login text editing controllers
-  final TextEditingController logEmails = TextEditingController();
-  final TextEditingController logPass = TextEditingController();
+  TextEditingController logEmails = TextEditingController();
+  TextEditingController logPass = TextEditingController();
 
   // Registration text editing controllers
   final TextEditingController userNameController = TextEditingController();
@@ -32,7 +30,7 @@ class AuthServices extends ChangeNotifier{
 
 
  // For new user account
- Future<void> newAccount() async {
+ Future<void> newAccount(context) async {
   final user = await _auth.createUserWithEmailAndPassword(
     email: emailController.text, 
     password: passController.text);
@@ -49,7 +47,11 @@ class AuthServices extends ChangeNotifier{
   // Check condition whether user already registered or not
   if (user != null) {
     print("Registered");
-   // Get.to(login());
+   Navigator.push(context, MaterialPageRoute(builder: (context) => const login()));
+
+   // show message
+   Fluttertoast.showToast(msg: "Registration Successfully", fontSize: 20);
+
   }
   else {
    print("Error");
@@ -95,7 +97,7 @@ class AuthServices extends ChangeNotifier{
  Future<void> logoutUser() async {
   await _auth.signOut();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.clear();
+  //prefs.clear();
   print("User logout Successfully");
  
   
@@ -113,26 +115,30 @@ class AuthServices extends ChangeNotifier{
   }
  }
 
- // Variable declaration for remember me
-  bool isRememberMe = false;
+  Future<void> googleLogin() async {
+    print("Google Login Method Called");
+    GoogleSignIn _googleSignIn = GoogleSignIn();
+    try{
+      var res = await _googleSignIn.signIn();
+      if (res == null) {
+        return;
+      }
 
-  // remember me function
-  // void rememberMe(bool value) {
-  //   isRememberMe = value;
-  //   SharedPreferences.getInstance().then((prefs) {
-  //     prefs.setBool("rememberMe", value);
-  //     prefs.setString("email", logEmails.text);
-  //     prefs.setString("password", logPass.text);
-  //   });
+      final userData = await res.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: userData.accessToken, idToken: userData.idToken
+      );
+      var finalResult = await FirebaseAuth.instance.signInWithCredential(credential);
+      print("User detail");
+      print(res.displayName);
+      print(res.email);
+      print(res.photoUrl);
+      print(res.id);
+    }
+    catch(e) {
 
-    
-  //     isRememberMe = value;
-  //     print(isRememberMe);
-  //     print(logEmails.text);
-  //     print(logPass.text);
-  
-  //   notifyListeners();
-  // }
+    }
+  }
 
  
 

@@ -2,7 +2,11 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
+import 'package:providerapp/controller/log_out_timer.dart';
+import 'package:providerapp/provider/dataprovider.dart';
+import 'package:providerapp/provider/userdetail.dart';
 import 'package:providerapp/view/forgotpassword.dart';
 import 'package:providerapp/view/homescreen.dart';
 import 'package:providerapp/view/real_login_screen.dart';
@@ -22,8 +26,21 @@ class _loginState extends State<login> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
 
+  LogoutTimer log = LogoutTimer();
+
   // Obejct of auth class
   AuthServices au = AuthServices();
+
+  @override
+  void initState() {
+    final postModel = Provider.of<DataProvider>(context, listen: false);
+   // postModel.getPostData();
+    postModel.getUserDetail();
+
+     final postModel1 = Provider.of<UserDetail>(context, listen: false);
+     postModel1.getTotalScore();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

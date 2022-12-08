@@ -162,6 +162,14 @@ void resetTimer() {
     final user = FirebaseAuth.instance.currentUser;
     final uid1 = user!.uid;
     final firestore = FirebaseFirestore.instance;
+
+  //   firestore.collection('scores').doc(uid1).set({
+  //      "Name" : _name,
+  //      "Score" : _count
+
+  //      }
+  // );
+    
     
     // Get score data from the firestore
     DocumentSnapshot snapshot = await firestore.collection('scores').doc(uid1).get();
