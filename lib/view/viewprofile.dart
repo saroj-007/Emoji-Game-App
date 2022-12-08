@@ -157,7 +157,7 @@ class _MyProfileState extends State<MyProfile> {
                  
                 ),
                   onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateMyProfile(
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateMyProfile(
                   )));
                         }, 
                         child: const Text('Edit Profile', 

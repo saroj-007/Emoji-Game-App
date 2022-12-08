@@ -331,7 +331,7 @@ print(e);
                onPressed: () async {
                 print("Hello World");
                await gs.googleSignIn();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const GoogleHome()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GoogleHome()));
                 
                }, 
                 icon: const FaIcon(FontAwesomeIcons.google, color: Colors.red,), 
