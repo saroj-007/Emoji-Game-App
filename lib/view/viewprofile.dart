@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
-import 'package:providerapp/provider/userdetail.dart';
+import 'package:providerapp/controller/userdetail.dart';
 import 'package:providerapp/view/drawerscreen.dart';
 import 'package:providerapp/view/homescreen.dart';
 import 'package:providerapp/view/update_profile.dart';

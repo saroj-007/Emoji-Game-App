@@ -212,6 +212,18 @@ void resetTimer() {
   notifyListeners();
   }
 
+  Future<void> showScore() async {
+    final user = FirebaseAuth.instance.currentUser!.uid;
+    final firestore = FirebaseFirestore.instance;
+    DocumentSnapshot snapshot = await firestore.collection('scores').doc(user).get();
+     var data1 = snapshot.data() as Map;
+    int Scores = data1['Score'];
+
+    realScore = _count + Scores;
+    notifyListeners();
+
+  }
+
   // Google Input Score
   Future<void> storeScore() async {
     final user = FirebaseAuth.instance.currentUser!.uid;

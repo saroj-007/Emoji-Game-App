@@ -31,11 +31,19 @@ class AuthServices extends ChangeNotifier{
 
  // For new user account
  Future<void> newAccount(context) async {
-  final user = await _auth.createUserWithEmailAndPassword(
+  
+  try {
+    final user = await _auth.createUserWithEmailAndPassword(
     email: emailController.text, 
     password: passController.text);
 
-  firestore.collection('users').doc(user.user!.uid).set({
+    DocumentSnapshot snapshot = await firestore.collection('users').doc(emailController.text).get();
+
+    if (snapshot.exists) {
+      Fluttertoast.showToast(msg: "User email already exists");
+    }
+    else {
+      firestore.collection('users').doc(user.user!.uid).set({
     "Name" : userNameController.text,
     "Address" : addressController.text,
     "Mobile" : mobileController.text,
@@ -43,19 +51,17 @@ class AuthServices extends ChangeNotifier{
     "Password" : passController.text
   }
   );
-
-  // Check condition whether user already registered or not
-  if (user != null) {
-    print("Registered");
-   Navigator.push(context, MaterialPageRoute(builder: (context) => const login()));
-
-   // show message
-   Fluttertoast.showToast(msg: "Registration Successfully", fontSize: 20);
-
+  Fluttertoast.showToast(msg: "Registration Successfully", fontSize: 20);
+  Navigator.push(context, MaterialPageRoute(builder: (context) => const login()));
+    }
   }
-  else {
-   print("Error");
+  on FirebaseAuthException catch(e) {
+    Fluttertoast.showToast(msg: e.toString(),
+    textColor: Colors.red
+    );
   }
+  
+  
  }
 
  

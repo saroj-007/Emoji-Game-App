@@ -2,7 +2,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:providerapp/provider/dataprovider.dart';
+import 'package:providerapp/controller/dataprovider.dart';
 
 class ProviderDemoScreen extends StatefulWidget {
   const ProviderDemoScreen({super.key});

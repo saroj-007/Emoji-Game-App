@@ -213,9 +213,15 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           bool isValid = EmailValidator.validate(au.emailController.text);
 
                           if (isValid) {
+                            if (au.passController.text == au.confirmPassController.text) {
                             au.newAccount(context);
-                            print("Registration Successfull");
-                            
+                            }
+                            else {
+                              Fluttertoast.showToast(msg: "Password didnot match",
+                              gravity: ToastGravity.CENTER,
+                              textColor: Colors.redAccent,
+                              fontSize: 20.0);
+                            }
                           }
                           else {
                             Fluttertoast.showToast(

@@ -5,7 +5,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/google_sigin_service.dart';
-import 'package:providerapp/provider/userdetail.dart';
+import 'package:providerapp/controller/dataprovider.dart';
+import 'package:providerapp/controller/userdetail.dart';
 import 'package:providerapp/view/login.dart';
 
 class GoogleProfile extends StatefulWidget {
@@ -21,7 +22,7 @@ class _GoogleProfileState extends State<GoogleProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final postModel = Provider.of<UserDetail>(context, listen: false);
+    final postModel = Provider.of<DataProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         
@@ -61,7 +62,7 @@ class _GoogleProfileState extends State<GoogleProfile> {
 
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 20, right: 20),
-                child: Text("Score: ${postModel.getScore}",
+                child: Text("Score: ${postModel.rScore}",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),),
               ),
             ],

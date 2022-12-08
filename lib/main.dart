@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
-import 'package:providerapp/provider/userdetail.dart';
-import 'package:providerapp/provider/dataprovider.dart';
+import 'package:providerapp/controller/userdetail.dart';
+import 'package:providerapp/controller/dataprovider.dart';
 import 'package:providerapp/view/login.dart';
 
 

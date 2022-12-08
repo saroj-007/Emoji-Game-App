@@ -4,8 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
-import 'package:providerapp/provider/dataprovider.dart';
-import 'package:providerapp/provider/userdetail.dart';
+import 'package:providerapp/controller/dataprovider.dart';
+import 'package:providerapp/controller/userdetail.dart';
 import 'package:providerapp/view/googlesigning.dart';
 import 'package:providerapp/view/login.dart';
 import 'package:providerapp/view/scoreview.dart';
@@ -88,15 +88,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyScore()));
           },
         ),
-        // ListTile(
-        //   leading: const Icon(
-        //     Icons.score,
-        //   ),
-        //   title: const Text('Change Password', style: TextStyle(fontSize: 20, color: Colors.blueAccent),),
-        //   onTap: () async {
-        //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyGoogleSignIn()));
-        //   },
-        // ),
+        
         ListTile(
           leading: const Icon(
             Icons.logout,
@@ -105,10 +97,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           onTap: () {
             au.logoutUser();
          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const login()));
-          // Navigator.pushAndRemoveUntil(
-          //           context,
-          //           MaterialPageRoute(builder: (context) => login()),
-          //           (route) => false);
+          
           },
         ),
       ],

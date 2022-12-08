@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:providerapp/provider/dataprovider.dart';
+import 'package:providerapp/controller/dataprovider.dart';
 import 'package:providerapp/view/drawerscreen.dart';
 import 'package:providerapp/view/gamescreen.dart';
 //import 'package:providerapp/gamescreen.dart';
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final postModel = Provider.of<DataProvider>(context, listen: false);
     postModel.getPostData();
     postModel.getUserDetail();
-   postModel.startTimer();
+  // postModel.startTimer();
     
   }
 

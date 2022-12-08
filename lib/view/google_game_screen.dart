@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:providerapp/controller/auths.dart';
-import 'package:providerapp/provider/dataprovider.dart';
+import 'package:providerapp/controller/dataprovider.dart';
 import 'package:providerapp/view/google_home.dart';
 import 'package:providerapp/view/homescreen.dart';
 
@@ -29,9 +29,6 @@ class _GoogleGameState extends State<GoogleGame> {
   List<int> nums = [0,1,2,3,4,5,6,7,8,9];
 
 AuthServices au = AuthServices();
-
- //UserDetail ud = UserDetail();
-
 
   @override
   Widget build(BuildContext context) {
