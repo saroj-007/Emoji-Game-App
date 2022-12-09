@@ -120,7 +120,7 @@ class DataProvider extends ChangeNotifier {
     startSecond();
 
     // Check condition and when result meet then timer stop
-    if (seconds == 20) {
+    if (seconds == 30) {
      _timer.cancel();
      showResult = true;
     }
